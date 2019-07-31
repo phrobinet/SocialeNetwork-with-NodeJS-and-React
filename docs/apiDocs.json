@@ -1,0 +1,22 @@
+{
+        "/": "api docs",
+        "/signup": "signup",
+        "/signin": "signin",
+        "/signout": "signout",
+
+        "/users": "get all users",
+        "/user/:userId": "get/update/delete user",
+        "/user/follow": "follow a firend",
+        "/user/unfollow": "unfollow a firend",
+
+
+        "/posts": "get all posts",
+        "/post/new/:userId": "create new post",
+        "/posts/by/:userId": "get posts by user",
+        "/post/:postId": "update/delete post",
+        "/post/comment": "comment a post",
+        "/post/uncomment": "uncomment a post",
+
+        "/forgot-password": "Send mail when forgot password",
+        "/reset-password": "reset password"
+}
