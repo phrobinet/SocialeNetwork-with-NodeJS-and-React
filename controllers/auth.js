@@ -20,24 +20,27 @@ exports.signup = async (req, res) => {
 };
 
 exports.signin = (req, res) => {
-    // * checher l'user par rapport au mail
+    // find the user based on email
     const { email, password } = req.body;
     User.findOne({ email }, (err, user) => {
+        // if err or no user
         if (err || !user) {
             return res.status(401).json({
                 error: "L'utiliateur avec ce mail n'existe pas. Enregistrez-vous s'il vous plait."
             });
         }
+        // if user is found make sure the email and password match
+        // create authenticate method in model and use here
         if (!user.authenticate(password)) {
             return res.status(401).json({
                 error: "L'email et le mot de passe ne correspondent pas"
             });
         }
-        // Généré un token avec user id et le JWT Secret
+        // generate a token with user id and secret
         const token = jwt.sign({ _id: user._id, role: user.role }, process.env.JWT_SECRET);
-        // Durée de vie du token
+        // persist the token as 't' in cookie with expiry date
         res.cookie("t", token, { expire: new Date() + 9999 });
-        // retourne la réponse avec l'usesr et le token au front
+        // retrun response with user and token to frontend client
         const { _id, name, email, role } = user;
         return res.json({ token, user: { _id, email, name, role } });
     });
@@ -102,11 +105,17 @@ exports.forgotPassword = (req, res) => {
     });
 };
 
+// to allow user to reset password
+// first you will find the user in the database with user's resetPasswordLink
+// user model's resetPasswordLink's value must match the token
+// if the user's resetPasswordLink(token) matches the incoming req.body.resetPasswordLink(token)
+// then we got the right user
+
 exports.resetPassword = (req, res) => {
     const { resetPasswordLink, newPassword } = req.body;
 
     User.findOne({ resetPasswordLink }, (err, user) => {
-        // si err ou pas d'user
+        // if err or no user
         if (err || !user)
             return res.status("401").json({
                 error: "Invalid Link!"

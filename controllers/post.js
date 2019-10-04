@@ -20,8 +20,11 @@ exports.postById = (req, res, next, id) => {
         });
 };
 
+// with pagination
 exports.getPosts = async (req, res) => {
+    // get current page from req.query or use default value of 1
     const currentPage = req.query.page || 1;
+    // return 3 posts per page
     const perPage = 6;
     let totalItems;
 
@@ -117,7 +120,7 @@ exports.updatePost = (req, res, next) => {
                 error: "Photo could not be uploaded"
             });
         }
-        // enregistre le post
+        // save post
         let post = req.post;
         post = _.extend(post, fields);
         post.updated = Date.now();

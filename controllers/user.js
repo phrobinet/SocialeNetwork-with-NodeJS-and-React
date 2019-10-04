@@ -5,6 +5,7 @@ const fs = require("fs");
 
 exports.userById = (req, res, next, id) => {
     User.findById(id)
+        // populate followers and following users array
         .populate("following", "_id name lastname")
         .populate("followers", "_id name lastname")
         .exec((err, user) => {
@@ -13,7 +14,7 @@ exports.userById = (req, res, next, id) => {
                     error: "User not found"
                 });
             }
-            req.profile = user; // ajoute l'objet profil dans la demande avec les informations de l'utilisateur
+            req.profile = user; // adds profile object in req with user info
             next();
         });
 };
@@ -63,7 +64,7 @@ exports.updateUser = (req, res, next) => {
                 error: "Photo could not be uploaded"
             });
         }
-        // enregistre l'utilisateur
+        // save user
         let user = req.profile;
         user = _.extend(user, fields);
 
@@ -148,7 +149,6 @@ exports.addFollower = (req, res) => {
             res.json(result);
         });
 };
-
 exports.askFriend = (req, res) => {
     User.findByIdAndUpdate(
         req.body.followId,
@@ -169,6 +169,7 @@ exports.askFriend = (req, res) => {
         });
 };
 
+// remove follow unfollow
 exports.removeFollowing = (req, res, next) => {
     User.findByIdAndUpdate(
         req.body.userId,

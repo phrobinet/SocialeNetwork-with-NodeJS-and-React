@@ -29,9 +29,10 @@ router.delete("/user/:userId", requireSignin, hasAuthorization,  deleteUser);
 // photo
 router.get("/user/photo/:userId", userPhoto);
 
+// who to follow
 router.get("/user/findpeople/:userId", requireSignin, findPeople);
 
-// toute route contenant :userId, notre application exécutera d'abord userByID()
+// any route containing :userId, our app will first execute userByID()
 router.param("userId", userById);
 
 module.exports = router;

@@ -7,7 +7,7 @@ const {
     resetPassword
 } = require("../controllers/auth");
 
-// import password / reset / validator
+// import password reset validator
 const { userSignupValidator, passwordResetValidator } = require("../validator");
 const { userById } = require("../controllers/user");
 
@@ -17,10 +17,11 @@ router.post("/signup", userSignupValidator, signup);
 router.post("/signin", signin);
 router.get("/signout", signout);
 
+// password forgot and reset routes
 router.put("/forgot-password", forgotPassword);
 router.put("/reset-password", passwordResetValidator, resetPassword);
 
-// toute route contenant :userId, notre application exécutera d'abord userByID()
+// any route containing :userId, our app will first execute userByID()
 router.param("userId", userById);
 
 module.exports = router;

@@ -11,7 +11,7 @@ exports.sendEmail = emailData => {
         // requireTLS: true,
         auth: {
             user: "noreplynetworkphilippe@gmail.com",
-            pass: process.env.MAIL
+            pass: "A/zerty1"
         },
         tls: {
             rejectUnauthorized: false

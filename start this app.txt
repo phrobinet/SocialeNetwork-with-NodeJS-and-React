@@ -1,0 +1,11 @@
+nodeapi ==> npm run dev
+react-front ==> npm start
+
+User : 
+azerty@azerty.com
+lulu@lulu.com => lulu12
+bibi@bibi.com => bibi12
+vivi@vivi.com => vivi12
+
+ADMIN :
+master@master.com => admin
