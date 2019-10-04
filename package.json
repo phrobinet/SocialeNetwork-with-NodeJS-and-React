@@ -35,5 +35,8 @@
     "nodemailer": "^6.3.0",
     "nodemon": "^1.18.9",
     "uuid": "^3.3.2"
+  },
+    "engines": {
+    "node": "10.x"
   }
 }
